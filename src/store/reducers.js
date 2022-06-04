@@ -1,5 +1,5 @@
-import * as actions from "./actions";
-import { BATCH_SIZE, MAX_CATALOGUE_LENGTH } from "../constants";
+import * as actions from './actions';
+import { BATCH_SIZE, MAX_CATALOGUE_LENGTH } from '../constants';
 
 /**
  * Check if number of items exceeds the desired end of catalogue.
@@ -23,6 +23,13 @@ const initialOrgState = {
   items: [],
 };
 
+const initialRepoState = {
+  isFetching: true,
+  hasErrored: false,
+  name: '',
+  items: [],
+};
+
 const initialState = {
   isFetching: true,
   hasErrored: false,
@@ -30,6 +37,39 @@ const initialState = {
   items: [],
   nextItemsBatch: [],
   currentPage: 1,
+};
+
+/**
+ * Get organization.
+ *
+ * @param {Object} state.
+ * @param {Object} action.
+ * @returns {Object} a copy of the state modified according to the action dispatched.
+ */
+export const org = (state = initialOrgState, action) => {
+  switch (action.type) {
+    case actions.GET_ORG:
+      return {
+        ...state,
+        isFetching: true,
+        hasErrored: false,
+      };
+    case actions.GET_ORG_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        hasErrored: false,
+        items: [...state.items, action.org], //org is a single object. Don't use the spread (...) operator.
+      };
+    case actions.GET_ORG_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        hasErrored: true,
+      };
+    default:
+      return state;
+  }
 };
 
 /**
@@ -109,22 +149,30 @@ export const repos = (state = initialState, action) => {
   }
 };
 
-export const org = (state = initialOrgState, action) => {
+/**
+ * Get specific repository's details.
+ *
+ * @param {Object} state.
+ * @param {Object} action.
+ * @returns {Object} a copy of the state modified according to the action dispatched.
+ */
+export const repoDetails = (state = initialRepoState, action) => {
   switch (action.type) {
-    case actions.GET_ORG:
+    case actions.GET_SPECIFIC_REPO:
       return {
         ...state,
+        name: action.name,
         isFetching: true,
         hasErrored: false,
       };
-    case actions.GET_ORG_SUCCESS:
+    case actions.GET_SPECIFIC_REPO_SUCCESS:
       return {
         ...state,
         isFetching: false,
         hasErrored: false,
-        items: [...state.items, action.org], //org is a single object. Don't use the spread (...) operator.
+        items: [action.repoDetails], //Don't need to keep old items. Just replace them.
       };
-    case actions.GET_ORG_FAILURE:
+    case actions.GET_SPECIFIC_REPO_FAILURE:
       return {
         ...state,
         isFetching: false,
