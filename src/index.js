@@ -13,6 +13,7 @@ import { HistoryRouter as Router } from 'redux-first-history/rr6';
 import { createBrowserHistory } from 'history';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import Details from './routes/RepoDetails';
+import PageNotFound from './routes/404';
 
 const { createReduxHistory, routerMiddleware, routerReducer } =
   createReduxHistoryContext({
@@ -46,14 +47,7 @@ root.render(
         <Routes>
           <Route path='/' element={<App />} />
           <Route path='details/:name' element={<Details />} />
-          <Route
-            path='*'
-            element={
-              <main style={{ padding: '1rem' }}>
-                <Link to='/'>Page does not exist. Go home</Link>
-              </main>
-            }
-          />
+          <Route path='*' element={<PageNotFound />} />
         </Routes>
       </Router>
     </Provider>

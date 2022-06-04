@@ -1,3 +1,10 @@
+import {
+  ArrowLeftIcon,
+  BookIcon,
+  EyeIcon,
+  RepoForkedIcon,
+  StarIcon,
+} from '@primer/octicons-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getRepos } from '../store/actions';
@@ -15,7 +22,10 @@ export default function RepoDetails() {
                 className='text-3xl font-bold text-indigo-600 hover:underline'
                 to='/'
                 onClick={() => dispatch(getRepos())}
-              >{`${repoDetails.items[0].owner.login}`}</Link>{' '}
+              >
+                <ArrowLeftIcon size={24} verticalAlign='middle' />
+                {`${repoDetails.items[0].owner.login}`}
+              </Link>{' '}
               /{' '}
               <a
                 className='text-3xl font-bold text-indigo-600 hover:underline'
@@ -26,11 +36,43 @@ export default function RepoDetails() {
                 {repoDetails.items[0].name}
               </a>
               <div className='p-2'>{`${repoDetails.items[0].description}`}</div>
-              <div className='flex flex-row'>
-                <div className='p-2'>{`⭐ ${repoDetails.items[0].stargazers_count}`}</div>
-                <div className='p-2'>{`🍴 ${repoDetails.items[0].forks_count}`}</div>
-                <div className='p-2'>{`👀 ${repoDetails.items[0].watchers_count}`}</div>
-                <div className='p-2'>{`📚 ${repoDetails.items[0].language}`}</div>
+              <div className='w-100 flex flex-row justify-evenly'>
+                <div
+                  className='flex basis-1/4 flex-col items-center justify-center p-2'
+                  title='Stars'
+                >
+                  <StarIcon size={24} verticalAlign='middle' />
+                  <span className='align-middle'>
+                    {` ${repoDetails.items[0].stargazers_count} `} Stars
+                  </span>
+                </div>
+                <div
+                  className='flex basis-1/4 flex-col items-center justify-center p-2'
+                  title='Forks'
+                >
+                  <RepoForkedIcon size={24} verticalAlign='middle' />
+                  <span className='align-middle'>
+                    {` ${repoDetails.items[0].forks_count} `} Forks
+                  </span>
+                </div>
+                <div
+                  className='flex basis-1/4 flex-col items-center justify-center p-2'
+                  title='Watchers'
+                >
+                  <EyeIcon size={24} verticalAlign='middle' />
+                  <span className='align-middle'>
+                    {` ${repoDetails.items[0].watchers_count}`} Watchers
+                  </span>
+                </div>
+                <div
+                  className='flex basis-1/4 flex-col items-center justify-center p-2'
+                  title='Language'
+                >
+                  <BookIcon size={24} verticalAlign='middle' />
+                  <span className='align-middle'>
+                    {` ${repoDetails.items[0].language}`} Language
+                  </span>
+                </div>
               </div>
             </div>
           </>

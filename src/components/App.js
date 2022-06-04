@@ -11,12 +11,19 @@ import {
 import '../styles.css';
 
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import useScrollPosition from '@react-hook/window-scroll';
+import { SearchIcon } from '@primer/octicons-react';
 
 const App = () => {
   const [isBottom, setIsBottom] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const { repos, org } = useSelector((state) => state);
   const { nextItemsBatch, isFetching, hasErrored, isEndOfCatalogue } = repos;
+
+  // Handle scroll to top button
+  const scrollY = useScrollPosition(1 /*fps*/);
+  const [showScrollTopBtn, setShowScrollTopBtn] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -64,6 +71,14 @@ const App = () => {
     }
   }, [isBottom, nextItemsBatch, dispatch, setIsBottom]);
 
+  useEffect(() => {
+    if (scrollY > 0) {
+      setShowScrollTopBtn(true);
+    } else {
+      setShowScrollTopBtn(false);
+    }
+  }, [scrollY]);
+
   const handleClick = (e, repo) => {
     dispatch(getSpecificRepo(repo.name));
     //TODO handle redirect in saga
@@ -81,7 +96,7 @@ const App = () => {
                 alt={`${org.items[0].name}`}
               />
               <div className='ml-5 flex flex-row items-center bg-white'>
-                <h2 className='text-center text-2xl font-light md:text-5xl'>
+                <h2 className='text-center text-2xl font-bold md:text-5xl'>
                   {org.items[0].name} Repos
                 </h2>
               </div>
@@ -103,10 +118,12 @@ const App = () => {
           <input
             type='text'
             placeholder='Search'
+            onChange={(e) => setSearchQuery(e.target.value)}
+            value={searchQuery}
             className='no-focus-ring col-span-8 mb-5 rounded-xl border-2 border-gray-300 p-4 shadow-md shadow-slate-600 ring-0'
           />
-          <button className='no-focus-ring col-span-2 mb-5 rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600'>
-            Search
+          <button className='no-focus-ring col-span-2 mb-5 rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600 hover:translate-y-1 hover:cursor-pointer hover:border-gray-400 hover:bg-gray-100 hover:shadow-inner'>
+            <SearchIcon size={16} verticalAlign='middle' />
           </button>
         </div>
         {repos.items.length > 0 ? (
@@ -129,8 +146,8 @@ const App = () => {
               className='mb-2 flex h-20 animate-pulse flex-row items-center justify-between rounded-xl border-2 border-gray-300 bg-gray-500 p-4 shadow-md shadow-slate-600'
             >
               <div>
-                <h3 className='w-1/2 bg-gray-500 font-bold'>{}</h3>
-                <p className='w-80 break-words bg-gray-500 md:w-fit'></p>
+                <h3 className='w-40 bg-gray-500 font-bold md:w-fit'>{}</h3>
+                <p className='w-40 break-words bg-gray-500 md:w-fit'></p>
               </div>
             </div>
           ))
@@ -141,7 +158,9 @@ const App = () => {
       {repos.items.length > 0 && (
         <>
           <button
-            className='fixed bottom-6 right-2'
+            className={`fixed bottom-9 right-6 rounded-full border-2 border-gray-300 bg-gray-300 p-2 shadow-md shadow-slate-600 ${
+              showScrollTopBtn ? 'visible' : 'invisible'
+            }`}
             onClick={handleScrollToTop}
           >
             Top
@@ -154,7 +173,7 @@ const App = () => {
       {!repos.items.length && !isFetching ? (
         <p className='info-text'>Couldn't find any repos.</p>
       ) : isEndOfCatalogue ? (
-        <p className='info-text'>Couldn't load any more repos.</p>
+        <p className='info-text'>Loaded all repos.</p>
       ) : isFetching ? (
         <p className='info-text'>Loading repos...</p>
       ) : hasErrored ? (
