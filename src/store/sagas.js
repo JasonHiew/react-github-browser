@@ -1,11 +1,4 @@
-import {
-  call,
-  put,
-  takeLatest,
-  select,
-  takeEvery,
-  take,
-} from 'redux-saga/effects';
+import { call, put, takeLatest, select, takeEvery } from 'redux-saga/effects';
 import * as actions from './actions';
 import { getData } from '../services';
 import { BATCH_SIZE, MAX_CATALOGUE_LENGTH, ORGANIZATION } from '../constants';
@@ -97,7 +90,7 @@ function* fetchReposSaga({ type }) {
 export default function* rootSaga() {
   yield takeLatest(actions.GET_ORG, fetchOrgSaga);
   yield takeLatest(actions.GET_SPECIFIC_REPO, fetchSpecificRepoSaga);
-  yield takeLatest(
+  yield takeEvery(
     [actions.GET_REPOS, actions.GET_NEXT_REPOS_BATCH],
     fetchReposSaga
   );

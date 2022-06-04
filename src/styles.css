@@ -27,3 +27,11 @@
   margin: 0 25px 10px 0;
   font-weight: bold;
 }
+
+.gradient {
+  @apply bg-gradient-to-b from-green-400 to-blue-500;
+}
+
+.no-focus-ring {
+  @apply focus:ring-0 focus:ring-offset-0;
+}
