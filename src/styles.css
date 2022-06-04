@@ -1,11 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .App {
   font-family: sans-serif;
   text-align: center;
 }
 
-.page-title,
+.page-title {
+  @apply text-center text-4xl font-bold;
+}
+
 .info-text {
-  text-align: center;
+  @apply text-center;
 }
 
 .item-container {

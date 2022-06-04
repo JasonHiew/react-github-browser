@@ -4,12 +4,12 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
 import { Provider } from "react-redux";
 import App from "./components/App";
-import users from "./store/reducers";
+import { org, repos } from "./store/reducers";
 import rootSaga from "./store/sagas";
 import { composeWithDevTools } from "@redux-devtools/extension";
 
 const sagaMiddleware = createSagaMiddleware();
-const rootReducer = combineReducers({ users });
+const rootReducer = combineReducers({ org: org, repos: repos });
 const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(sagaMiddleware))

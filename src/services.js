@@ -14,6 +14,7 @@ const getData = (endpoint) => {
       return response.data;
     })
     .catch((err) => {
+      console.log(err);
       throw new Error(
         `There was the following problem: ${err} while fetching ${endpoint}`
       );

@@ -17,42 +17,48 @@ export function checkEndOfCatalogue(
   return batchSize * currentPage > maxCatalogueLength;
 }
 
+const initialOrgState = {
+  isFetching: true,
+  hasErrored: false,
+  items: [],
+};
+
 const initialState = {
   isFetching: true,
   hasErrored: false,
   isEndOfCatalogue: false,
   items: [],
   nextItemsBatch: [],
-  currentPage: 1
+  currentPage: 1,
 };
 
 /**
- * Get users.
+ * Get repos.
  *
  * @param {Object} state.
  * @param {Object} action.
  * @returns {Object} a copy of the state modified according to the action dispatched.
  */
-const users = (state = initialState, action) => {
+export const repos = (state = initialState, action) => {
   const isEndOfCatalogue = checkEndOfCatalogue(
     BATCH_SIZE,
     state.currentPage,
     MAX_CATALOGUE_LENGTH
   );
   switch (action.type) {
-    case actions.GET_USERS:
+    case actions.GET_REPOS:
       return {
         ...state,
         isFetching: true,
-        hasErrored: false
+        hasErrored: false,
       };
-    case actions.GET_USERS_SUCCESS:
+    case actions.GET_REPOS_SUCCESS:
       if (isEndOfCatalogue) {
         return {
           ...state,
           isFetching: false,
           hasErrored: false,
-          isEndOfCatalogue: true
+          isEndOfCatalogue: true,
         };
       }
       return {
@@ -60,22 +66,22 @@ const users = (state = initialState, action) => {
         isFetching: false,
         hasErrored: false,
         isEndOfCatalogue: false,
-        items: [...state.items, ...action.users.results],
-        currentPage: state.currentPage + 1
+        items: [...state.items, ...action.repos],
+        currentPage: state.currentPage + 1,
       };
-    case actions.GET_USERS_FAILURE:
+    case actions.GET_REPOS_FAILURE:
       return {
         ...state,
         isFetching: false,
-        hasErrored: true
+        hasErrored: true,
       };
-    case actions.GET_NEXT_USERS_BATCH_SUCCESS:
+    case actions.GET_NEXT_REPOS_BATCH_SUCCESS:
       if (isEndOfCatalogue) {
         return {
           ...state,
           isFetching: false,
           hasErrored: false,
-          isEndOfCatalogue: true
+          isEndOfCatalogue: true,
         };
       }
 
@@ -83,24 +89,48 @@ const users = (state = initialState, action) => {
         ...state,
         isFetching: false,
         hasErrored: false,
-        nextItemsBatch: action.users.results,
-        currentPage: state.currentPage + 1
+        nextItemsBatch: action.repos,
+        currentPage: state.currentPage + 1,
       };
-    case actions.GET_NEXT_USERS_BATCH_FAILURE:
+    case actions.GET_NEXT_REPOS_BATCH_FAILURE:
       return {
         ...state,
         isFetching: false,
-        hasErrored: true
+        hasErrored: true,
       };
-    case actions.ADD_NEXT_USERS_BATCH:
+    case actions.ADD_NEXT_REPOS_BATCH:
       return {
         ...state,
         items: [...state.items, ...state.nextItemsBatch],
-        nextItemsBatch: []
+        nextItemsBatch: [],
       };
     default:
       return state;
   }
 };
 
-export default users;
+export const org = (state = initialOrgState, action) => {
+  switch (action.type) {
+    case actions.GET_ORG:
+      return {
+        ...state,
+        isFetching: true,
+        hasErrored: false,
+      };
+    case actions.GET_ORG_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        hasErrored: false,
+        items: [...state.items, action.org], //org is a single object. Don't use the spread (...) operator.
+      };
+    case actions.GET_ORG_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        hasErrored: true,
+      };
+    default:
+      return state;
+  }
+};

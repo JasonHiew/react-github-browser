@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getUsers, addNextUsersBatch } from "../store/actions";
+import { getRepos, addNextReposBatch, getOrg } from "../store/actions";
 
 import "../styles.css";
 
 const App = () => {
   const [isBottom, setIsBottom] = useState(false);
 
-  const { users } = useSelector((state) => state);
-  const { nextItemsBatch, isFetching, hasErrored, isEndOfCatalogue } = users;
+  const { repos, org } = useSelector((state) => state);
+  const { nextItemsBatch, isFetching, hasErrored, isEndOfCatalogue } = repos;
 
   const dispatch = useDispatch();
 
@@ -32,22 +32,22 @@ const App = () => {
     return () => window.removeEventListener("scroll", handleUserScroll);
   }, []);
 
-  // get users when page is loading
+  // get data when page is loading
   useEffect(() => {
-    dispatch(getUsers());
+    dispatch(getRepos());
+    dispatch(getOrg());
   }, [dispatch]);
 
   // handle re-rendering when users get to the bottom of the page
   useEffect(() => {
     if (isBottom) {
       if (nextItemsBatch.length) {
-        // render the next batch of pre-fetched users
-        dispatch(addNextUsersBatch());
+        // render the next batch of pre-fetched repos
+        dispatch(addNextReposBatch());
       } else {
         // fetch another batch
-        dispatch(getUsers());
+        dispatch(getRepos());
       }
-
       setIsBottom(false);
     }
   }, [isBottom, nextItemsBatch, dispatch, setIsBottom]);
@@ -55,38 +55,36 @@ const App = () => {
   return (
     <>
       <div>
-        <h2 className="page-title">Infinite Scrolling App</h2>
-        {users.items.map((user) => (
-          <div key={user.email} className="item-container">
-            <img
-              src={user.picture.large}
-              alt={`${user.name.first} ${user.name.last}`}
-            />
+        {org.items.length && (
+          <img src={org.items[0].avatar_url} alt={`${org.items[0].name}`} />
+        )}
+
+        <h2 className="page-title">React Community Repos</h2>
+        {repos.items.map((repo, idx) => (
+          <div key={idx} className="item-container">
             <div style={{ marginLeft: "20px" }}>
-              <h3>
-                {user.name.first} {user.name.last}
-              </h3>
+              <h3>{repo.name}</h3>
               <p>
-                <small>{user.login.username}</small>
+                {/* <small>{repo.login.username}</small> */}
                 <br />
-                <b>{user.email}</b>
+                <b>{repo.description}</b>
               </p>
             </div>
           </div>
         ))}
       </div>
-      {users.items.length && (
-        <div className="users-listing">Showing {users.items.length} users</div>
+      {repos.items.length && (
+        <div className="users-listing">Showing {repos.items.length} repos</div>
       )}
-      {!users.items.length && !isFetching ? (
-        <p className="info-text">Couldn't find any users.</p>
+      {!repos.items.length && !isFetching ? (
+        <p className="info-text">Couldn't find any repos.</p>
       ) : isEndOfCatalogue ? (
-        <p className="info-text">End of users catalogue.</p>
+        <p className="info-text">Couldn't load any more repos.</p>
       ) : isFetching ? (
         <p className="info-text">Loading...</p>
       ) : hasErrored ? (
         <p className="info-text">
-          There was an error while fetching users data.
+          There was an error while fetching repos data.
         </p>
       ) : null}
     </>
