@@ -13,7 +13,8 @@ const RepoList = ({ repos, handleClick }) => {
       </div>
     ))
   ) : repos.isFetching && repos.items.length === 0 ? (
-    [...Array(10)].map((data = 0, idx) => (
+    // This is the skeleton for the loading state
+    [...Array(3)].map((data = 0, idx) => (
       <div
         key={idx}
         className='mb-2 flex h-20 animate-pulse flex-row items-center justify-between rounded-xl border-2 border-gray-300 bg-gray-500 p-4 shadow-md shadow-slate-600'

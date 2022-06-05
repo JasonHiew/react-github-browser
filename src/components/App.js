@@ -102,19 +102,21 @@ const App = () => {
     <Layout layout='home'>
       <div className='details-container'>
         {org.items.length > 0 && !org.isFetching ? (
-          <div className='my-5 flex flex-row rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600'>
-            <>
+          <div className='my-5 flex flex-row items-stretch gap-x-3 rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600'>
+            <div className='flex basis-1/3 flex-row items-center rounded-xl bg-white p-4 shadow-lg shadow-slate-600'>
               <img
-                className='h-20 w-20 bg-gray-500 md:h-40 md:w-40'
+                className='my-2 h-20 w-20 rounded-md bg-gray-500 md:h-40 md:w-40'
                 src={org.items[0].avatar_url}
                 alt={`${org.items[0].name}`}
               />
-              <div className='ml-5 flex flex-row items-center bg-white'>
-                <h2 className='text-center text-2xl font-bold md:text-5xl'>
+            </div>
+            <div className='flex basis-2/3 flex-row items-center rounded-xl bg-white p-4 shadow-lg shadow-slate-600'>
+              <div className='flex justify-center text-left text-2xl font-bold md:text-5xl'>
+                <span className='block w-3/4 font-mono leading-none [text-shadow:0_4px_8px_rgba(0,0,0,0.3)]'>
                   {org.items[0].name} Repos
-                </h2>
+                </span>
               </div>
-            </>
+            </div>
           </div>
         ) : org.isFetching ? (
           <div className='my-5 flex animate-pulse flex-row rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600'>
@@ -169,7 +171,11 @@ const App = () => {
           >
             Top
           </button>
-          <RepoCounter repos={repos} />
+          {searchRepos.searchedName === '' ? (
+            <RepoCounter repos={repos} />
+          ) : (
+            <RepoCounter repos={searchRepos} />
+          )}
         </>
       )}
       {searchRepos.searchedName === '' ? (
