@@ -223,13 +223,17 @@ export const searchRepos = (state = initialSearchState, action) => {
         isFetching: false,
         hasErrored: true,
       };
-    case actions.CLEAR_SEARCH_REPO:
+    case actions.CLEAR_SEARCH_REPO_SUCCESS:
       return {
-        isFetching: false,
-        hasErrored: false,
-        totalCount: 0,
-        incompleteResults: false,
-        items: [],
+        ...initialSearchState,
+      };
+    case actions.CLEAR_SEARCH_REPO_FAILURE:
+      return {
+        isFetching: initialSearchState.isFetching,
+        hasErrored: true,
+        totalCount: initialSearchState.totalCount,
+        incompleteResults: initialSearchState.incompleteResults,
+        items: initialSearchState.items,
       };
     default:
       return state;

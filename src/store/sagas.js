@@ -99,10 +99,6 @@ function* searchRepoSaga({ type }) {
     if (type === actions.SEARCH_REPO) {
       yield put(actions.searchRepoSuccess(repos));
     }
-
-    if (type === actions.CLEAR_SEARCH_REPO) {
-      yield put(actions.clearSearchRepo());
-    }
   } catch (error) {
     if (type === actions.SEARCH_REPO) {
       yield put(actions.searchRepoFailure());
@@ -113,11 +109,11 @@ function* searchRepoSaga({ type }) {
 function* clearSearchRepoSaga({ type }) {
   try {
     if (type === actions.CLEAR_SEARCH_REPO) {
-      yield put(actions.clearSearchRepo());
+      yield put(actions.clearSearchRepoSuccess());
     }
   } catch (error) {
-    if (type === actions.SEARCH_REPO) {
-      yield put(actions.searchRepoFailure());
+    if (type === actions.CLEAR_SEARCH_REPO) {
+      yield put(actions.clearSearchRepoFailure());
     }
   }
 }

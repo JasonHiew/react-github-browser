@@ -18,6 +18,8 @@ export const SEARCH_REPO = 'SEARCH_REPO';
 export const SEARCH_REPO_SUCCESS = 'SEARCH_REPO_SUCCESS';
 export const SEARCH_REPO_FAILURE = 'SEARCH_REPO_FAILURE';
 export const CLEAR_SEARCH_REPO = 'CLEAR_SEARCH_REPO';
+export const CLEAR_SEARCH_REPO_SUCCESS = 'CLEAR_SEARCH_REPO_SUCCESS';
+export const CLEAR_SEARCH_REPO_FAILURE = 'CLEAR_SEARCH_REPO_FAILURE';
 
 // Fetch an organization's details.
 
@@ -235,5 +237,27 @@ export const searchRepoFailure = (errors) => {
 export const clearSearchRepo = () => {
   return {
     type: CLEAR_SEARCH_REPO,
+  };
+};
+
+/**
+ * Cleared search repo state.
+ *
+ * @returns {Object} action
+ */
+export const clearSearchRepoSuccess = () => {
+  return {
+    type: CLEAR_SEARCH_REPO_SUCCESS,
+  };
+};
+
+/**
+ * Clear search repo state failed.
+ *
+ * @returns {Object} action
+ */
+export const clearSearchRepoFailure = () => {
+  return {
+    type: CLEAR_SEARCH_REPO_FAILURE,
   };
 };

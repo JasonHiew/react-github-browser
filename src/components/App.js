@@ -15,6 +15,8 @@ import 'styles/styles.css';
 import useScrollPosition from '@react-hook/window-scroll';
 import { SearchIcon, XCircleIcon } from '@primer/octicons-react';
 import RepoList from './RepoList/RepoList';
+import RepoResult from './RepoList/RepoResult';
+import RepoCounter from './RepoList/RepoCounter';
 
 const App = () => {
   const [isBottom, setIsBottom] = useState(false);
@@ -87,16 +89,18 @@ const App = () => {
   };
 
   const handleSearch = () => {
+    if (searchQuery.length === 0) return;
     dispatch(searchRepo(searchQuery));
   };
 
   const handleClearSearch = () => {
+    setSearchQuery('');
     dispatch(clearSearchRepo());
   };
 
   return (
     <Layout layout='home'>
-      <div className='container mx-auto p-2 px-4 sm:w-3/4'>
+      <div className='details-container'>
         {org.items.length > 0 && !org.isFetching ? (
           <div className='my-5 flex flex-row rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600'>
             <>
@@ -165,22 +169,14 @@ const App = () => {
           >
             Top
           </button>
-          <div className='users-listing'>
-            Showing {repos.items.length} repos
-          </div>
+          <RepoCounter repos={repos} />
         </>
       )}
-      {!repos.items.length && !isFetching ? (
-        <p className='info-text'>Couldn't find any repos.</p>
-      ) : isEndOfCatalogue ? (
-        <p className='info-text'>Loaded all repos.</p>
-      ) : isFetching ? (
-        <p className='info-text'>Loading repos...</p>
-      ) : hasErrored ? (
-        <p className='info-text'>
-          There was an error while fetching repos data.
-        </p>
-      ) : null}
+      {searchRepos.searchedName === '' ? (
+        <RepoResult repos={repos} />
+      ) : (
+        <RepoResult repos={searchRepos} />
+      )}
     </Layout>
   );
 };

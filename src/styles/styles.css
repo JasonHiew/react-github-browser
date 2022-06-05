@@ -30,7 +30,7 @@
   margin-bottom: 20px;
 }
 
-.users-listing {
+.repos-listing {
   position: fixed;
   bottom: 0;
   right: 0;
@@ -39,7 +39,7 @@
 }
 
 .gradient {
-  @apply bg-gradient-to-b from-green-400 to-blue-500;
+  @apply flex min-h-screen flex-col bg-gradient-to-b from-green-400 to-blue-500;
 }
 
 .no-focus-ring {
@@ -55,8 +55,7 @@
 /*! ********************/
 
 .details-container {
-  height: calc(100vh - 120px); /* 120px = Header (64px) - Footer (56px) */
-  @apply container mx-auto p-2 px-4 sm:w-3/4;
+  @apply container mx-auto flex-1 p-2 px-4 sm:w-3/4;
 }
 /*! **********************/
 /*! End of Details Page **/

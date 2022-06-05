@@ -1,5 +1,4 @@
 const RepoList = ({ repos, handleClick }) => {
-  console.log('RepoList redux state : ' + JSON.stringify(repos));
   return repos.items.length > 0 ? (
     repos.items.map((repo, idx) => (
       <div
@@ -27,8 +26,6 @@ const RepoList = ({ repos, handleClick }) => {
     ))
   ) : repos.hasErrored ? (
     <p className='info-text'>Error...</p>
-  ) : repos?.totalCount === 0 ? (
-    <p className='info-text'>No result...</p>
   ) : null;
 };
 
