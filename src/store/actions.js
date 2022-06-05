@@ -14,12 +14,17 @@ export const GET_SPECIFIC_REPO = 'GET_SPECIFIC_REPO';
 export const GET_SPECIFIC_REPO_SUCCESS = 'GET_SPECIFIC_REPO_SUCCESS';
 export const GET_SPECIFIC_REPO_FAILURE = 'GET_SPECIFIC_REPO_FAILURE';
 
+export const SEARCH_REPO = 'SEARCH_REPO';
+export const SEARCH_REPO_SUCCESS = 'SEARCH_REPO_SUCCESS';
+export const SEARCH_REPO_FAILURE = 'SEARCH_REPO_FAILURE';
+export const CLEAR_SEARCH_REPO = 'CLEAR_SEARCH_REPO';
+
 // Fetch an organization's details.
 
 /**
  * Get organization.
  *
- * @returns {Object} action.
+ * @returns {Object} action
  */
 export const getOrg = () => {
   return {
@@ -30,8 +35,8 @@ export const getOrg = () => {
 /**
  *  Organization successfully received.
  *
- * @param {Object} org.
- * @returns {Object} action.
+ * @param {Object} org
+ * @returns {Object} action
  */
 export const getOrgSuccess = (org) => {
   return {
@@ -43,8 +48,8 @@ export const getOrgSuccess = (org) => {
 /**
  * Failed to get organization.
  *
- * @param {Object} errors.
- * @returns {Object} action.
+ * @param {Object} errors
+ * @returns {Object} action
  */
 export const getOrgFailure = (errors) => {
   return {
@@ -58,7 +63,7 @@ export const getOrgFailure = (errors) => {
 /**
  * Get Repos.
  *
- * @returns {Object} action.
+ * @returns {Object} action
  */
 export const getRepos = () => {
   return {
@@ -69,8 +74,8 @@ export const getRepos = () => {
 /**
  *  Repos successfully received.
  *
- * @param {Object} repos.
- * @returns {Object} action.
+ * @param {Object} repos
+ * @returns {Object} action
  */
 export const getReposSuccess = (repos) => {
   return {
@@ -82,8 +87,8 @@ export const getReposSuccess = (repos) => {
 /**
  * Failed to get repos.
  *
- * @param {Object} errors.
- * @returns {Object} action.
+ * @param {Object} errors
+ * @returns {Object} action
  */
 export const getReposFailure = (errors) => {
   return {
@@ -95,7 +100,7 @@ export const getReposFailure = (errors) => {
 /**
  * Get Next Repos batch.
  *
- * @returns {Object} action.
+ * @returns {Object} action
  */
 export const getNextReposBatch = () => {
   return {
@@ -106,8 +111,8 @@ export const getNextReposBatch = () => {
 /**
  *  Next batch of Repos successfully received.
  *
- * @param {Object} repos.
- * @returns {Object} action.
+ * @param {Object} repos
+ * @returns {Object} action
  */
 export const getNextReposBatchSuccess = (repos) => {
   return {
@@ -119,8 +124,8 @@ export const getNextReposBatchSuccess = (repos) => {
 /**
  * Failed to get next repos batch.
  *
- * @param {Object} errors.
- * @returns {Object} action.
+ * @param {Object} errors
+ * @returns {Object} action
  */
 export const getNextReposBatchFailure = (errors) => {
   return {
@@ -132,7 +137,7 @@ export const getNextReposBatchFailure = (errors) => {
 /**
  * Add next items batch to items state.
  *
- * @returns {Object} action.
+ * @returns {Object} action
  */
 export const addNextReposBatch = () => {
   return {
@@ -145,7 +150,8 @@ export const addNextReposBatch = () => {
 /**
  * Get a specific repo.
  *
- * @returns {Object} action.
+ * @param {String} name
+ * @returns {Object} action
  */
 export const getSpecificRepo = (name) => {
   return {
@@ -157,8 +163,8 @@ export const getSpecificRepo = (name) => {
 /**
  *  Specific repo successfully received.
  *
- * @param {Object} repoDetails.
- * @returns {Object} action.
+ * @param {Object} repoDetails
+ * @returns {Object} action
  */
 export const getSpecificRepoSuccess = (repoDetails) => {
   return {
@@ -170,12 +176,64 @@ export const getSpecificRepoSuccess = (repoDetails) => {
 /**
  * Failed to get the specific repo.
  *
- * @param {Object} errors.
- * @returns {Object} action.
+ * @param {Object} errors
+ * @returns {Object} action
  */
 export const getSpecificRepoFailure = (errors) => {
   return {
     type: GET_SPECIFIC_REPO_FAILURE,
     errors,
+  };
+};
+
+// Search for a repo.
+
+/**
+ * Search for a repo.
+ *
+ * @param {String} searchedName
+ * @returns {Object} action
+ */
+export const searchRepo = (searchedName) => {
+  return {
+    type: SEARCH_REPO,
+    searchedName: searchedName,
+  };
+};
+
+/**
+ *  Specific repo successfully received.
+ *
+ * @param {Object} repos
+ * @returns {Object} action
+ */
+export const searchRepoSuccess = (repos) => {
+  return {
+    type: SEARCH_REPO_SUCCESS,
+    repos,
+  };
+};
+
+/**
+ * Failed to get the specific repo.
+ *
+ * @param {Object} errors
+ * @returns {Object} action
+ */
+export const searchRepoFailure = (errors) => {
+  return {
+    type: SEARCH_REPO_FAILURE,
+    errors,
+  };
+};
+
+/**
+ * Clear search repo state.
+ *
+ * @returns {Object} action
+ */
+export const clearSearchRepo = () => {
+  return {
+    type: CLEAR_SEARCH_REPO,
   };
 };

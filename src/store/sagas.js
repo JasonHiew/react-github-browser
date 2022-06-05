@@ -1,14 +1,17 @@
 import { call, put, takeLatest, select, takeEvery } from 'redux-saga/effects';
 import * as actions from './actions';
-import { getData } from '../services';
-import { BATCH_SIZE, MAX_CATALOGUE_LENGTH, ORGANIZATION } from '../constants';
+import { getData } from 'services/services';
+import {
+  BATCH_SIZE,
+  MAX_CATALOGUE_LENGTH,
+  ORGANIZATION,
+} from 'constants/constants';
 import { push } from 'redux-first-history';
 
 function* fetchOrgSaga({ type }) {
   try {
     const org = yield call(
       getData,
-      // `https://randomuser.me/api/?page=${currentPage}&results=${BATCH_SIZE}`
       `https://api.github.com/orgs/${ORGANIZATION}`
     );
 
@@ -27,7 +30,6 @@ function* fetchSpecificRepoSaga({ type }) {
     const { name } = yield select((state) => state.repoDetails);
     const repoDetails = yield call(
       getData,
-      // `https://randomuser.me/api/?page=${currentPage}&results=${BATCH_SIZE}`
       `https://api.github.com/repos/${ORGANIZATION}/${name}`
     );
 
@@ -56,7 +58,6 @@ function* fetchReposSaga({ type }) {
 
       const repos = yield call(
         getData,
-        // `https://randomuser.me/api/?page=${currentPage}&results=${itemsReminder}`
         `https://api.github.com/orgs/${ORGANIZATION}/repos?per_page=${BATCH_SIZE}&page=${currentPage}`
       );
 
@@ -65,7 +66,6 @@ function* fetchReposSaga({ type }) {
 
     const repos = yield call(
       getData,
-      // `https://randomuser.me/api/?page=${currentPage}&results=${BATCH_SIZE}`
       `https://api.github.com/orgs/${ORGANIZATION}/repos?per_page=${BATCH_SIZE}&page=${currentPage}`
     );
 
@@ -87,6 +87,41 @@ function* fetchReposSaga({ type }) {
   }
 }
 
+function* searchRepoSaga({ type }) {
+  try {
+    const { searchedName } = yield select((state) => state.searchRepos);
+
+    const repos = yield call(
+      getData,
+      `https://api.github.com/search/repositories?q=${searchedName}+in:name+org:${ORGANIZATION}`
+    );
+
+    if (type === actions.SEARCH_REPO) {
+      yield put(actions.searchRepoSuccess(repos));
+    }
+
+    if (type === actions.CLEAR_SEARCH_REPO) {
+      yield put(actions.clearSearchRepo());
+    }
+  } catch (error) {
+    if (type === actions.SEARCH_REPO) {
+      yield put(actions.searchRepoFailure());
+    }
+  }
+}
+
+function* clearSearchRepoSaga({ type }) {
+  try {
+    if (type === actions.CLEAR_SEARCH_REPO) {
+      yield put(actions.clearSearchRepo());
+    }
+  } catch (error) {
+    if (type === actions.SEARCH_REPO) {
+      yield put(actions.searchRepoFailure());
+    }
+  }
+}
+
 export default function* rootSaga() {
   yield takeLatest(actions.GET_ORG, fetchOrgSaga);
   yield takeLatest(actions.GET_SPECIFIC_REPO, fetchSpecificRepoSaga);
@@ -94,5 +129,6 @@ export default function* rootSaga() {
     [actions.GET_REPOS, actions.GET_NEXT_REPOS_BATCH],
     fetchReposSaga
   );
-  // yield takeLatest('CREATE_USER', createUser);
+  yield takeEvery(actions.SEARCH_REPO, searchRepoSaga);
+  yield takeEvery(actions.CLEAR_SEARCH_REPO, clearSearchRepoSaga);
 }

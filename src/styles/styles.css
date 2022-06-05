@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Navigate this CSS file using #(number) */
+/* #1: Main Page (App.js) */
+/* #2: Details Page */
+/* #3: Layout */
+/* #4: Common components */
+
+/*! **************************/
+/*! [#1] Main Page (App.js) **/
+/*! **************************/
+
+.App {
+  @apply text-center;
+}
+
+.page-title {
+  @apply text-center text-4xl font-bold;
+}
+
+.info-text {
+  @apply pb-3 text-center text-lg;
+}
+
+.item-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.users-listing {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 0 25px 10px 0;
+  font-weight: bold;
+}
+
+.gradient {
+  @apply bg-gradient-to-b from-green-400 to-blue-500;
+}
+
+.no-focus-ring {
+  @apply focus:ring-0 focus:ring-offset-0;
+}
+
+/*! ****************************/
+/*! End of Main Page (App.js) **/
+/*! ****************************/
+
+/*! ********************/
+/*! [#2] Details Page **/
+/*! ********************/
+
+.details-container {
+  height: calc(100vh - 120px); /* 120px = Header (64px) - Footer (56px) */
+  @apply container mx-auto p-2 px-4 sm:w-3/4;
+}
+/*! **********************/
+/*! End of Details Page **/
+/*! **********************/
+
+/*! **************/
+/*! [#3] Layout **/
+/*! **************/
+
+/** Header */
+.header {
+  @apply text-center;
+}
+
+.navbar {
+  @apply flex h-14 bg-white shadow-2xl;
+}
+
+.navbar-hidden {
+  @apply hidden;
+}
+
+.navbar-brand {
+  @apply flex flex-row items-center text-2xl font-semibold;
+}
+
+.navbar-brand-link {
+  @apply flex flex-row content-center items-center align-middle;
+}
+
+.navbar-img {
+  @apply h-10 flex-1 rounded-xl border-2 border-gray-300 bg-gray-500 p-1 align-middle;
+}
+
+.navbar-title {
+  @apply h-10 grow rounded-xl p-1 align-middle text-2xl font-semibold;
+}
+/** End of Header */
+
+/** Footer */
+.footer {
+  @apply flex justify-center py-5 font-mono text-base;
+}
+/** End of Footer */
+
+/*! ***************/
+/*! End of Layout */
+/*! ***************/
+
+/*! ************************/
+/*! [#4] Common components */
+/*! ************************/
+
+/** Error box */
+
+.error-box {
+  @apply relative p-2;
+}
+
+.error-inner-box {
+  @apply mx-auto flex h-3/4 w-5/6 flex-col justify-center rounded-lg border-2 border-gray-300 bg-white p-5 py-20 align-middle shadow-md shadow-slate-600 md:w-3/4;
+}
+
+/** End of Error box */
+
+/*! ***************************/
+/*! End of Common components  */
+/*! ***************************/

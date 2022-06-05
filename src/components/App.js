@@ -1,24 +1,26 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   getRepos,
   addNextReposBatch,
   getOrg,
-  getOrgSuccess,
   getSpecificRepo,
-} from '../store/actions';
+  searchRepo,
+  clearSearchRepo,
+} from 'store/actions';
+import Layout from 'components/Layout';
 
-import '../styles.css';
+import 'styles/styles.css';
 
-import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import useScrollPosition from '@react-hook/window-scroll';
-import { SearchIcon } from '@primer/octicons-react';
+import { SearchIcon, XCircleIcon } from '@primer/octicons-react';
+import RepoList from './RepoList/RepoList';
 
 const App = () => {
   const [isBottom, setIsBottom] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const { repos, org } = useSelector((state) => state);
+  const { repos, org, searchRepos } = useSelector((state) => state);
   const { nextItemsBatch, isFetching, hasErrored, isEndOfCatalogue } = repos;
 
   // Handle scroll to top button
@@ -84,8 +86,16 @@ const App = () => {
     //TODO handle redirect in saga
   };
 
+  const handleSearch = () => {
+    dispatch(searchRepo(searchQuery));
+  };
+
+  const handleClearSearch = () => {
+    dispatch(clearSearchRepo());
+  };
+
   return (
-    <div className='gradient'>
+    <Layout layout='home'>
       <div className='container mx-auto p-2 px-4 sm:w-3/4'>
         {org.items.length > 0 && !org.isFetching ? (
           <div className='my-5 flex flex-row rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600'>
@@ -114,46 +124,36 @@ const App = () => {
         ) : org.hasErrored ? (
           <p className='info-text'>Error...</p>
         ) : null}
-        <div className='grid grid-flow-col grid-cols-10 gap-4'>
+        <div className='grid grid-flow-col grid-cols-9 gap-4'>
           <input
             type='text'
             placeholder='Search'
             onChange={(e) => setSearchQuery(e.target.value)}
             value={searchQuery}
-            className='no-focus-ring col-span-8 mb-5 rounded-xl border-2 border-gray-300 p-4 shadow-md shadow-slate-600 ring-0'
+            className='no-focus-ring col-span-5  mb-5 rounded-xl border-2 border-gray-300 p-4 shadow-md shadow-slate-600 ring-0'
           />
-          <button className='no-focus-ring col-span-2 mb-5 rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600 hover:translate-y-1 hover:cursor-pointer hover:border-gray-400 hover:bg-gray-100 hover:shadow-inner'>
+          <button
+            className='no-focus-ring gap col-span-2 mb-5 rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600 hover:translate-y-1 hover:cursor-pointer hover:border-gray-400 hover:bg-gray-100 hover:shadow-inner md:col-span-1'
+            onClick={handleClearSearch}
+          >
+            <XCircleIcon size={16} verticalAlign='middle' />
+          </button>
+          <button
+            className='no-focus-ring col-span-2 mb-5 rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600 hover:translate-y-1 hover:cursor-pointer hover:border-gray-400 hover:bg-gray-100 hover:shadow-inner md:col-span-1'
+            onClick={handleSearch}
+          >
             <SearchIcon size={16} verticalAlign='middle' />
           </button>
         </div>
-        {repos.items.length > 0 ? (
-          repos.items.map((repo, idx) => (
-            <div
-              key={idx}
-              className='mb-2 flex flex-row items-center justify-between rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600 hover:translate-y-1 hover:cursor-pointer hover:border-gray-400 hover:bg-gray-100 hover:shadow-inner'
-              onClick={(e) => handleClick(e, repo)}
-            >
-              <div>
-                <h3 className='font-bold'>{repo.name}</h3>
-                <p className='w-80 break-words md:w-fit'>{repo.description}</p>
-              </div>
-            </div>
-          ))
-        ) : repos.isFetching || repos.items.length === 0 ? (
-          [...Array(10)].map((data = 0, idx) => (
-            <div
-              key={idx}
-              className='mb-2 flex h-20 animate-pulse flex-row items-center justify-between rounded-xl border-2 border-gray-300 bg-gray-500 p-4 shadow-md shadow-slate-600'
-            >
-              <div>
-                <h3 className='w-40 bg-gray-500 font-bold md:w-fit'>{}</h3>
-                <p className='w-40 break-words bg-gray-500 md:w-fit'></p>
-              </div>
-            </div>
-          ))
-        ) : repos.hasErrored ? (
-          <p className='info-text'>Error...</p>
-        ) : null}
+        {/* RepoList: Loads / maps all repos as a list with an onClick function.*/}
+        {/* Takes repos object from "repos" redux state and handleClick function.*/}
+        {/* The condition to determine if user is searching or showing all is by checking*/}
+        {/* the "searchQuery" (Search Box value) state*/}
+        {searchRepos.searchedName === '' ? (
+          <RepoList repos={repos} handleClick={handleClick} />
+        ) : (
+          <RepoList repos={searchRepos} handleClick={handleClick} />
+        )}
       </div>
       {repos.items.length > 0 && (
         <>
@@ -181,7 +181,7 @@ const App = () => {
           There was an error while fetching repos data.
         </p>
       ) : null}
-    </div>
+    </Layout>
   );
 };
 

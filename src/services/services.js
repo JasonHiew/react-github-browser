@@ -11,6 +11,7 @@ const getData = (endpoint) => {
     .get(endpoint)
     .then((response) => {
       if (!response) throw new Error(response.statusText);
+      console.log('URL: ' + endpoint);
       console.log(response);
       return response.data;
     })

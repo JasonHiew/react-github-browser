@@ -4,14 +4,13 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';
 import App from './components/App';
-import { org, repos, repoDetails } from './store/reducers';
+import { org, repos, repoDetails, searchRepos } from './store/reducers';
 import rootSaga from './store/sagas';
 import { composeWithDevTools } from '@redux-devtools/extension';
-import { createReduxHistoryContext, reachify } from 'redux-first-history';
-import { createWouterHook } from 'redux-first-history/wouter';
+import { createReduxHistoryContext } from 'redux-first-history';
 import { HistoryRouter as Router } from 'redux-first-history/rr6';
 import { createBrowserHistory } from 'history';
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Details from './routes/RepoDetails';
 import PageNotFound from './routes/404';
 
@@ -26,6 +25,7 @@ const rootReducer = combineReducers({
   org: org,
   repos: repos,
   repoDetails: repoDetails,
+  searchRepos: searchRepos,
 });
 const store = createStore(
   rootReducer,
@@ -36,6 +36,8 @@ export const history = createReduxHistory(store);
 
 sagaMiddleware.run(rootSaga);
 
+// *!README Install 'better comments' plugin to see nicer comments in some files*
+
 /**
  * Render React application
  */
@@ -45,6 +47,7 @@ root.render(
     <Provider store={store}>
       <Router history={history}>
         <Routes>
+          <Route index element={<App />} />
           <Route path='/' element={<App />} />
           <Route path='details/:name' element={<Details />} />
           <Route path='*' element={<PageNotFound />} />

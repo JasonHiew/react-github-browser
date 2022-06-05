@@ -1,5 +1,5 @@
 import * as actions from './actions';
-import { BATCH_SIZE, MAX_CATALOGUE_LENGTH } from '../constants';
+import { BATCH_SIZE, MAX_CATALOGUE_LENGTH } from 'constants/constants';
 
 /**
  * Check if number of items exceeds the desired end of catalogue.
@@ -27,6 +27,15 @@ const initialRepoState = {
   isFetching: true,
   hasErrored: false,
   name: '',
+  items: [],
+};
+
+const initialSearchState = {
+  isFetching: true,
+  hasErrored: false,
+  searchedName: '',
+  totalCount: 0,
+  incompleteResults: false,
   items: [],
 };
 
@@ -177,6 +186,50 @@ export const repoDetails = (state = initialRepoState, action) => {
         ...state,
         isFetching: false,
         hasErrored: true,
+      };
+    default:
+      return state;
+  }
+};
+
+/**
+ * Search repos.
+ *
+ * @param {Object} state.
+ * @param {Object} action.
+ * @returns {Object} a copy of the state modified according to the action dispatched.
+ */
+export const searchRepos = (state = initialSearchState, action) => {
+  switch (action.type) {
+    case actions.SEARCH_REPO:
+      return {
+        ...state,
+        searchedName: action.searchedName,
+        isFetching: true,
+        hasErrored: false,
+      };
+    case actions.SEARCH_REPO_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        hasErrored: false,
+        totalCount: action.repos.total_count,
+        incompleteResults: action.repos.incomplete_results,
+        items: [...action.repos.items],
+      };
+    case actions.SEARCH_REPO_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        hasErrored: true,
+      };
+    case actions.CLEAR_SEARCH_REPO:
+      return {
+        isFetching: false,
+        hasErrored: false,
+        totalCount: 0,
+        incompleteResults: false,
+        items: [],
       };
     default:
       return state;
