@@ -27,7 +27,7 @@ export default function RepoDetails() {
       <main className='details-container'>
         {repoDetails.items.length > 0 && !repoDetails.isFetching ? (
           <>
-            <div className='m-5 rounded-lg border-2 border-gray-300 bg-white p-5 shadow-md shadow-slate-600'>
+            <div className='m-5 rounded-lg border-2 border-gray-300 bg-white p-5 pb-10 shadow-md shadow-slate-600'>
               <GitHubRedirectLink
                 url={repoDetails.items[0].owner.html_url}
                 text={repoDetails.items[0].owner.login}
@@ -38,7 +38,7 @@ export default function RepoDetails() {
                 text={repoDetails.items[0].name}
               />
               <div className='py-2 text-xl'>{`${repoDetails.items[0].description}`}</div>
-              <div className='w-100 flex flex-row justify-around'>
+              <div className='w-100 flex flex-row justify-evenly sm:pb-2'>
                 <RepoHoverBtn
                   url={repoDetails.items[0].html_url}
                   type_count={repoDetails.items[0].stargazers_count}
