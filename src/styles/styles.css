@@ -124,3 +124,11 @@
 /*! ***************************/
 /*! End of Common components  */
 /*! ***************************/
+
+.search-button-hover {
+  @apply col-span-2 mb-5 rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600 hover:translate-y-1 hover:cursor-pointer hover:border-gray-400 hover:bg-gray-100 hover:shadow-inner md:col-span-1;
+}
+
+.search-button-no-hover {
+  @apply col-span-2 mb-5 rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600 md:col-span-1;
+}

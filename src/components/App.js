@@ -14,9 +14,10 @@ import 'styles/styles.css';
 
 import useScrollPosition from '@react-hook/window-scroll';
 import { SearchIcon, XCircleIcon } from '@primer/octicons-react';
-import RepoList from './RepoList/RepoList';
-import RepoResult from './RepoList/RepoResult';
-import RepoCounter from './RepoList/RepoCounter';
+import RepoList from './repolist/RepoList';
+import RepoResult from './repolist/RepoResult';
+import RepoCounter from './repolist/RepoCounter';
+import SearchRoot from './search/SearchRoot';
 
 const App = () => {
   const [isBottom, setIsBottom] = useState(false);
@@ -103,7 +104,7 @@ const App = () => {
       <div className='details-container'>
         {org.items.length > 0 && !org.isFetching ? (
           <div className='my-5 flex flex-row items-stretch gap-x-3 rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600'>
-            <div className='flex basis-1/3 flex-row items-center rounded-xl bg-white p-4 shadow-lg shadow-slate-600'>
+            <div className='flex basis-1/3 flex-row justify-center rounded-xl bg-white p-4 shadow-lg shadow-slate-600'>
               <img
                 className='my-2 h-20 w-20 rounded-md bg-gray-500 md:h-40 md:w-40'
                 src={org.items[0].avatar_url}
@@ -130,7 +131,17 @@ const App = () => {
         ) : org.hasErrored ? (
           <p className='info-text'>Error...</p>
         ) : null}
-        <div className='grid grid-flow-col grid-cols-9 gap-4'>
+
+        <SearchRoot
+          repos={repos}
+          org={org}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          handleSearch={handleSearch}
+          handleClearSearch={handleClearSearch}
+        />
+
+        {/* <div className='grid grid-flow-col grid-cols-9 gap-4'>
           <input
             type='text'
             placeholder='Search'
@@ -150,7 +161,8 @@ const App = () => {
           >
             <SearchIcon size={16} verticalAlign='middle' />
           </button>
-        </div>
+        </div> */}
+
         {/* RepoList: Loads / maps all repos as a list with an onClick function.*/}
         {/* Takes repos object from "repos" redux state and handleClick function.*/}
         {/* The condition to determine if user is searching or showing all is by checking*/}
