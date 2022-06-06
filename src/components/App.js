@@ -14,10 +14,10 @@ import 'styles/styles.css';
 
 import useScrollPosition from '@react-hook/window-scroll';
 import { SearchIcon, XCircleIcon } from '@primer/octicons-react';
-import RepoList from './repolist/RepoList';
-import RepoResult from './repolist/RepoResult';
-import RepoCounter from './repolist/RepoCounter';
-import SearchRoot from './search/SearchRoot';
+import RepoList from 'components/repolist/RepoList';
+import RepoResult from 'components/repolist/RepoResult';
+import RepoCounter from 'components/repolist/RepoCounter';
+import SearchRoot from 'components/search/SearchRoot';
 
 const App = () => {
   const [isBottom, setIsBottom] = useState(false);
