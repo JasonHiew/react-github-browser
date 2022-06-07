@@ -17,28 +17,7 @@ export function checkEndOfCatalogue(
   return batchSize * currentPage > maxCatalogueLength;
 }
 
-const initialOrgState = {
-  isFetching: true,
-  hasErrored: false,
-  items: [],
-};
-
-const initialRepoState = {
-  isFetching: true,
-  hasErrored: false,
-  name: '',
-  items: [],
-};
-
-const initialSearchState = {
-  isFetching: true,
-  hasErrored: false,
-  searchedName: '',
-  totalCount: 0,
-  incompleteResults: false,
-  items: [],
-};
-
+// repos state: Has all the repos
 const initialState = {
   isFetching: true,
   hasErrored: false,
@@ -46,6 +25,31 @@ const initialState = {
   items: [],
   nextItemsBatch: [],
   currentPage: 1,
+};
+
+// org state: Has organization details
+const initialOrgState = {
+  isFetching: true,
+  hasErrored: false,
+  items: [],
+};
+
+// repo state: Has a specific repo details
+const initialRepoState = {
+  isFetching: true,
+  hasErrored: false,
+  name: '',
+  items: [],
+};
+
+// searchRepos state: Has the search results
+const initialSearchState = {
+  isFetching: true,
+  hasErrored: false,
+  searchedName: '',
+  totalCount: 0,
+  incompleteResults: false,
+  items: [],
 };
 
 /**

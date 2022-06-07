@@ -8,16 +8,17 @@ import {
   searchRepo,
   clearSearchRepo,
 } from 'store/actions';
-import Layout from 'components/Layout';
+import Layout from 'components/layout/Layout';
 
 import 'styles/styles.css';
 
 import useScrollPosition from '@react-hook/window-scroll';
-import { SearchIcon, XCircleIcon } from '@primer/octicons-react';
 import RepoList from 'components/repolist/RepoList';
 import RepoResult from 'components/repolist/RepoResult';
 import RepoCounter from 'components/repolist/RepoCounter';
 import SearchRoot from 'components/search/SearchRoot';
+import ScrollToTopBtn from './repolist/ScrollToTopBtn';
+import OrgList from './orglist/OrgList';
 
 const App = () => {
   const [isBottom, setIsBottom] = useState(false);
@@ -60,6 +61,8 @@ const App = () => {
   useEffect(() => {
     dispatch(getRepos());
     dispatch(getOrg());
+    const resetOnUnmount = () => dispatch(clearSearchRepo()); //Trying to fix the double mounting bug
+    return resetOnUnmount;
   }, [dispatch]);
 
   // handle re-rendering when users get to the bottom of the page
@@ -86,7 +89,6 @@ const App = () => {
 
   const handleClick = (e, repo) => {
     dispatch(getSpecificRepo(repo.name));
-    //TODO handle redirect in saga
   };
 
   const handleSearch = () => {
@@ -102,36 +104,13 @@ const App = () => {
   return (
     <Layout layout='home'>
       <div className='details-container'>
-        {org.items.length > 0 && !org.isFetching ? (
-          <div className='my-5 flex flex-row items-stretch gap-x-3 rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600'>
-            <div className='flex basis-1/3 flex-row justify-center rounded-xl bg-white p-4 shadow-lg shadow-slate-600'>
-              <img
-                className='my-2 h-20 w-20 rounded-md bg-gray-500 md:h-40 md:w-40'
-                src={org.items[0].avatar_url}
-                alt={`${org.items[0].name}`}
-              />
-            </div>
-            <div className='flex basis-2/3 flex-row items-center rounded-xl bg-white p-4 shadow-lg shadow-slate-600'>
-              <div className='flex justify-center text-left text-2xl font-bold md:text-5xl'>
-                <span className='block w-3/4 font-mono leading-none [text-shadow:0_4px_8px_rgba(0,0,0,0.3)]'>
-                  {org.items[0].name} Repos
-                </span>
-              </div>
-            </div>
-          </div>
-        ) : org.isFetching ? (
-          <div className='my-5 flex animate-pulse flex-row rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600'>
-            <>
-              <div className='h-20 w-20 bg-gray-500 md:h-40 md:w-40'></div>
-              <div className='ml-5 flex flex-row items-center'>
-                <div className='w-1/2 bg-gray-500 text-center'></div>
-              </div>
-            </>
-          </div>
-        ) : org.hasErrored ? (
-          <p className='info-text'>Error...</p>
-        ) : null}
-
+        {/* OrgList: Display organization details */}
+        {/* Takes org object from "org" redux state*/}
+        <OrgList org={org} />
+        {/* SearchRoot: Display search function */}
+        {/* Takes repos and org object from "repos" and "org" redux state,*/}
+        {/* searchQuery and setSearchQuery useState hook,*/}
+        {/* handleSearch and setSearchQuery functions*/}
         <SearchRoot
           repos={repos}
           org={org}
@@ -140,28 +119,6 @@ const App = () => {
           handleSearch={handleSearch}
           handleClearSearch={handleClearSearch}
         />
-
-        {/* <div className='grid grid-flow-col grid-cols-9 gap-4'>
-          <input
-            type='text'
-            placeholder='Search'
-            onChange={(e) => setSearchQuery(e.target.value)}
-            value={searchQuery}
-            className='no-focus-ring col-span-5  mb-5 rounded-xl border-2 border-gray-300 p-4 shadow-md shadow-slate-600 ring-0'
-          />
-          <button
-            className='no-focus-ring gap col-span-2 mb-5 rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600 hover:translate-y-1 hover:cursor-pointer hover:border-gray-400 hover:bg-gray-100 hover:shadow-inner md:col-span-1'
-            onClick={handleClearSearch}
-          >
-            <XCircleIcon size={16} verticalAlign='middle' />
-          </button>
-          <button
-            className='no-focus-ring col-span-2 mb-5 rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600 hover:translate-y-1 hover:cursor-pointer hover:border-gray-400 hover:bg-gray-100 hover:shadow-inner md:col-span-1'
-            onClick={handleSearch}
-          >
-            <SearchIcon size={16} verticalAlign='middle' />
-          </button>
-        </div> */}
 
         {/* RepoList: Loads / maps all repos as a list with an onClick function.*/}
         {/* Takes repos object from "repos" redux state and handleClick function.*/}
@@ -175,14 +132,13 @@ const App = () => {
       </div>
       {repos.items.length > 0 && (
         <>
-          <button
-            className={`fixed bottom-9 right-6 rounded-full border-2 border-gray-300 bg-gray-300 p-2 shadow-md shadow-slate-600 ${
-              showScrollTopBtn ? 'visible' : 'invisible'
-            }`}
-            onClick={handleScrollToTop}
-          >
-            Top
-          </button>
+          {/* ScrollToTopBtn: Shows the scroll to top btn when page is not at the top of page */}
+          {/* Takes showScrollTopBtn useState hook and handleScrollToTop function*/}
+          <ScrollToTopBtn
+            showScrollTopBtn={showScrollTopBtn}
+            handleScrollToTop={handleScrollToTop}
+          />
+          {/* RepoCounter: Shows the number of repos loaded based on current action (normal or searching) */}
           {searchRepos.searchedName === '' ? (
             <RepoCounter repos={repos} />
           ) : (
@@ -190,6 +146,7 @@ const App = () => {
           )}
         </>
       )}
+      {/* RepoResult: Shows the the result of current action (normal or searching) whether results were shown or not */}
       {searchRepos.searchedName === '' ? (
         <RepoResult repos={repos} />
       ) : (

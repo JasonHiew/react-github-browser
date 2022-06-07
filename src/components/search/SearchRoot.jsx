@@ -1,4 +1,3 @@
-import { SearchIcon, XCircleIcon } from '@primer/octicons-react';
 import SearchBar from './SearchBar';
 import SearchBtn from './SearchBtn';
 
@@ -11,8 +10,8 @@ const SearchRoot = ({
   handleClearSearch,
 }) => {
   return repos.items.length > 0 && org.items.length > 0 ? (
-    <div className='flex justify-end'>
-      <div className='grid grid-cols-9 gap-2 md:grid-cols-7'>
+    <div className='search-root-container'>
+      <div className='search-root-grid'>
         <SearchBar
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
@@ -26,8 +25,8 @@ const SearchRoot = ({
       </div>
     </div>
   ) : (
-    <div className='flex justify-end'>
-      <div className='grid animate-pulse grid-cols-9 gap-2 md:grid-cols-7'>
+    <div className='search-root-container'>
+      <div className='search-root-grid animate-pulse'>
         <SearchBar
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}

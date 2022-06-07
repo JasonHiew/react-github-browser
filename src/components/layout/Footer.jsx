@@ -4,7 +4,12 @@ const Footer = () => {
   return (
     <footer className='footer'>
       <p className='mr-2'>&copy; {date.getFullYear().toString()} by </p>
-      <a href='https://jason-devs.me' target='_blank' rel='noopener noreferrer'>
+      <a
+        className='footer-link'
+        href='https://jason-devs.me'
+        target='_blank'
+        rel='noopener noreferrer'
+      >
         {' '}
         Jason Hiew
       </a>

@@ -39,7 +39,9 @@ sagaMiddleware.run(rootSaga);
 // *!README Install 'better comments' plugin to see nicer comments in some files*
 
 /**
- * Render React application
+ * Render React application.
+ * React 18 has a double mounting bug.
+ * This makes for some weird behaviour when putting redux dispatch in the useEffect hook...
  */
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -47,7 +49,6 @@ root.render(
     <Provider store={store}>
       <Router history={history}>
         <Routes>
-          <Route index element={<App />} />
           <Route path='/' element={<App />} />
           <Route path='details/:name' element={<Details />} />
           <Route path='*' element={<PageNotFound />} />

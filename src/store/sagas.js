@@ -8,6 +8,8 @@ import {
 } from 'constants/constants';
 import { push } from 'redux-first-history';
 
+// fetchOrgSaga: Fetch the organisation's details
+
 function* fetchOrgSaga({ type }) {
   try {
     const org = yield call(
@@ -25,6 +27,8 @@ function* fetchOrgSaga({ type }) {
   }
 }
 
+// fetchSpecificRepoSaga: Fetch a specific organization's details
+
 function* fetchSpecificRepoSaga({ type }) {
   try {
     const { name } = yield select((state) => state.repoDetails);
@@ -35,7 +39,7 @@ function* fetchSpecificRepoSaga({ type }) {
 
     if (type === actions.GET_SPECIFIC_REPO) {
       yield put(actions.getSpecificRepoSuccess(repoDetails));
-      yield put(push(`/details/${name}`));
+      yield put(push(`/details/${name}`)); //Redirects to the repo details page after fetching the repo details
     }
   } catch (error) {
     if (type === actions.GET_SPECIFIC_REPO) {
@@ -43,6 +47,9 @@ function* fetchSpecificRepoSaga({ type }) {
     }
   }
 }
+
+// fetchReposSaga: Fetch all the organisation's repos
+// getNextReposBatch: Fetch the next batch of repos
 
 function* fetchReposSaga({ type }) {
   try {
@@ -87,6 +94,8 @@ function* fetchReposSaga({ type }) {
   }
 }
 
+// searchRepoSaga: Search for a specific repository by name
+
 function* searchRepoSaga({ type }) {
   try {
     const { searchedName } = yield select((state) => state.searchRepos);
@@ -106,6 +115,8 @@ function* searchRepoSaga({ type }) {
   }
 }
 
+// clearSearchRepoSaga: Clear the search results
+
 function* clearSearchRepoSaga({ type }) {
   try {
     if (type === actions.CLEAR_SEARCH_REPO) {
@@ -117,6 +128,8 @@ function* clearSearchRepoSaga({ type }) {
     }
   }
 }
+
+// rootSaga: Root saga
 
 export default function* rootSaga() {
   yield takeLatest(actions.GET_ORG, fetchOrgSaga);

@@ -24,7 +24,7 @@ const Header = ({ hidden }) => {
           </div>
         </nav>
       ) : org.items.length === 0 ? (
-        <div className='h-14'></div>
+        <div className='navbar-hidden'></div>
       ) : null}
     </header>
   );

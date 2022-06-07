@@ -8,15 +8,12 @@ import {
 const RepoHoverBtn = (props) => {
   return (
     <a
-      className='m-0 h-fit rounded-lg border-2 border-transparent border-gray-300 hover:border-2 hover:border-indigo-400 hover:bg-gray-200 hover:text-indigo-600 md:m-2'
+      className='github-repo-hover-link'
       href={props.url}
       target='_blank'
       rel='noopener noreferrer'
     >
-      <div
-        className='flex basis-1/4 flex-col items-center justify-center px-2 py-5 text-center text-xs sm:text-sm'
-        title={props.text}
-      >
+      <div className='github-repo-hover-contents' title={props.text}>
         {props.type === 'stars' && (
           <StarIcon size={24} verticalAlign='middle' />
         )}

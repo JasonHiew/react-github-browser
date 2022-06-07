@@ -10,7 +10,11 @@ const SearchBtn = ({ handleSearch, handleClearSearch, isDisabled }) => {
         onClick={handleClearSearch}
         disabled={isDisabled}
       >
-        <XCircleIcon size={16} verticalAlign='middle' />
+        <XCircleIcon
+          size={24}
+          verticalAlign='middle'
+          className='text-red-600'
+        />
       </button>
       <button
         className={`no-focus-ring ${
@@ -19,7 +23,7 @@ const SearchBtn = ({ handleSearch, handleClearSearch, isDisabled }) => {
         onClick={handleSearch}
         disabled={isDisabled}
       >
-        <SearchIcon size={16} verticalAlign='middle' />
+        <SearchIcon size={24} verticalAlign='middle' />
       </button>
     </>
   );

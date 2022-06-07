@@ -4,15 +4,12 @@ import 'styles/styles.css';
 
 const ErrorBox = ({ errorTitle, errorMessage, suggestion }) => {
   return (
-    <div className='relative p-2'>
-      <div className='error-inner-box'>
-        <h2 className='text-center text-2xl font-bold'>Error: {errorTitle}</h2>
-        <h3 className='text-center text-xl font-semibold'>{errorMessage}</h3>
-        <h4 className='text-center text-xl font-semibold'>{suggestion}</h4>
-        <Link
-          className='mx-auto justify-center p-8 text-center text-3xl font-bold text-indigo-600 hover:underline'
-          to='/'
-        >
+    <div className='error-box-outer-container'>
+      <div className='error-box-inner-container'>
+        <h2 className='error-box-title'>Error: {errorTitle}</h2>
+        <h3 className='error-box-description'>{errorMessage}</h3>
+        <h4 className='error-box-suggestion'>{suggestion}</h4>
+        <Link className='error-page-link' to='/'>
           Back to Home
         </Link>{' '}
       </div>
