@@ -24,27 +24,26 @@
 /*? [#R1] Main Page (App.js) **/
 /*? ***************************/
 
-@layer base {
-  .App {
-    @apply text-center;
-  }
-
-  .details-container {
-    @apply container mx-auto flex-1 p-2 px-4 sm:w-3/4;
-  }
-
-  .info-text {
-    @apply pb-3 text-center text-lg;
-  }
-
-  .gradient {
-    @apply flex min-h-screen flex-col bg-gradient-to-b from-green-400 to-blue-500;
-  }
-
-  .no-focus-ring {
-    @apply focus:ring-0 focus:ring-offset-0;
-  }
+.App {
+  @apply text-center;
 }
+
+.details-container {
+  @apply container mx-auto flex-1 p-2 px-4 sm:w-3/4;
+}
+
+.info-text {
+  @apply pb-3 text-center text-lg;
+}
+
+.gradient {
+  @apply flex min-h-screen flex-col bg-gradient-to-b from-green-400 to-blue-500;
+}
+
+.no-focus-ring {
+  @apply focus:ring-0 focus:ring-offset-0;
+}
+
 /*? ****************************/
 /*? End of Main Page (App.js) **/
 /*? ****************************/
@@ -52,50 +51,45 @@
 /*? **************************/
 /*? [#R2] RepoDetails.jsx   **/
 /*? **************************/
-@layer components {
-  .repo-details-outer-container {
-    @apply container mx-auto flex-1 py-2 sm:w-3/4;
-  }
+.repo-details-outer-container {
+  @apply container mx-auto flex-1 py-2 sm:w-3/4;
+}
 
-  .repo-details-inner-container {
-    @apply m-5 rounded-lg border-2 border-gray-300 bg-white p-5 shadow-md shadow-slate-600;
-  }
+.repo-details-inner-container {
+  @apply m-5 rounded-lg border-2 border-gray-300 bg-white p-5 shadow-md shadow-slate-600;
+}
 
-  .repo-details-description {
-    @apply py-2 text-xl;
-  }
+.repo-details-description {
+  @apply py-2 text-xl;
+}
 
-  .repo-details-btn-grid {
-    @apply flex flex-row justify-evenly;
-  }
+.repo-details-btn-grid {
+  @apply flex flex-row justify-evenly;
 }
 
 /*? ****************************/
 /*? End of RepoDetails.jsx    **/
 /*? ****************************/
 
-@layer components {
-  .error-page-outer-container {
-    @apply relative h-screen p-2;
-  }
-
-  .error-page-inner-container {
-    @apply mx-auto my-20 flex h-3/4 w-5/6 flex-col justify-center rounded-lg border-2 border-gray-300 bg-white p-5 py-20 align-middle shadow-md shadow-slate-600 md:w-3/4;
-  }
-
-  .error-page-title {
-    @apply text-center text-5xl font-bold;
-  }
-
-  .error-page-description {
-    @apply text-center text-4xl font-semibold;
-  }
-}
-
 /*? ******************/
 /*? [#R3] 404.jsx   **/
 /*? ******************/
 
+.error-page-outer-container {
+  @apply relative h-screen p-2;
+}
+
+.error-page-inner-container {
+  @apply mx-auto my-20 flex h-3/4 w-5/6 flex-col justify-center rounded-lg border-2 border-gray-300 bg-white p-5 py-20 align-middle shadow-md shadow-slate-600 md:w-3/4;
+}
+
+.error-page-title {
+  @apply text-center text-5xl font-bold;
+}
+
+.error-page-description {
+  @apply text-center text-4xl font-semibold;
+}
 /*? ******************/
 /*? End of 404.jsx  **/
 /*? ******************/
@@ -109,46 +103,42 @@
 /*! **************/
 
 /** Header */
-@layer components {
-  .header {
-    @apply text-center;
-  }
+.header {
+  @apply text-center;
+}
 
-  .navbar {
-    @apply flex h-14 bg-white shadow-2xl;
-  }
+.navbar {
+  @apply flex h-14 bg-white shadow-2xl;
+}
 
-  .navbar-hidden {
-    @apply hidden;
-  }
+.navbar-hidden {
+  @apply hidden;
+}
 
-  .navbar-brand {
-    @apply flex flex-row items-center text-2xl font-semibold;
-  }
+.navbar-brand {
+  @apply flex flex-row items-center text-2xl font-semibold;
+}
 
-  .navbar-brand-link {
-    @apply flex flex-row content-center items-center align-middle;
-  }
+.navbar-brand-link {
+  @apply flex flex-row content-center items-center align-middle;
+}
 
-  .navbar-img {
-    @apply h-10 flex-1 rounded-xl border-2 border-gray-300 bg-gray-500 p-1 align-middle;
-  }
+.navbar-img {
+  @apply h-10 flex-1 rounded-xl border-2 border-gray-300 bg-gray-500 p-1 align-middle;
+}
 
-  .navbar-title {
-    @apply h-10 grow rounded-xl p-1 align-middle text-2xl font-semibold;
-  }
+.navbar-title {
+  @apply h-10 grow rounded-xl p-1 align-middle text-2xl font-semibold;
 }
 /** End of Header */
 
 /** Footer */
-@layer components {
-  .footer {
-    @apply flex justify-center py-5 font-mono text-base;
-  }
+.footer {
+  @apply flex justify-center py-5 font-mono text-base;
+}
 
-  .footer-link {
-    @apply font-sans font-black hover:text-indigo-700 hover:underline;
-  }
+.footer-link {
+  @apply font-sans font-black hover:text-indigo-700 hover:underline;
 }
 /** End of Footer */
 
@@ -164,30 +154,29 @@
 /** boxes */
 /**********/
 /** Error box */
-@layer components {
-  .error-box-outer-container {
-    @apply relative p-2;
-  }
 
-  .error-box-inner-container {
-    @apply mx-auto flex h-3/4 w-5/6 flex-col justify-center rounded-lg border-2 border-gray-300 bg-white p-5 py-20 align-middle shadow-md shadow-slate-600 md:w-3/4;
-  }
+.error-box-outer-container {
+  @apply relative p-2;
+}
 
-  .error-box-title {
-    @apply mb-2 text-center text-2xl font-bold;
-  }
+.error-box-inner-container {
+  @apply mx-auto flex h-3/4 w-5/6 flex-col justify-center rounded-lg border-2 border-gray-300 bg-white p-5 py-20 align-middle shadow-md shadow-slate-600 md:w-3/4;
+}
 
-  .error-box-description {
-    @apply mb-2 text-center text-xl font-semibold;
-  }
+.error-box-title {
+  @apply mb-2 text-center text-2xl font-bold;
+}
 
-  .error-box-suggestion {
-    @apply mb-2 text-center text-xl font-light;
-  }
+.error-box-description {
+  @apply mb-2 text-center text-xl font-semibold;
+}
 
-  .error-page-link {
-    @apply mx-auto justify-center p-8 text-center text-3xl font-bold text-indigo-600 hover:underline;
-  }
+.error-box-suggestion {
+  @apply mb-2 text-center text-xl font-light;
+}
+
+.error-page-link {
+  @apply mx-auto justify-center p-8 text-center text-3xl font-bold text-indigo-600 hover:underline;
 }
 
 /** End of Error box */
@@ -201,23 +190,23 @@
 /*****************/
 
 /** GitHubRedirectLink  */
-@layer components {
-  .github-redirect-link {
-    @apply text-3xl font-bold text-indigo-600 hover:underline;
-  }
+
+.github-redirect-link {
+  @apply text-3xl font-bold text-indigo-600 hover:underline;
 }
+
 /** End of GitHubRedirectLink link */
 
 /** RepoHoverBtn  */
-@layer components {
-  .github-repo-hover-link {
-    @apply m-0 h-fit rounded-lg border-2 border-transparent hover:border-2 hover:border-indigo-400 hover:bg-gray-200 hover:text-indigo-600 md:m-2;
-  }
 
-  .github-repo-hover-contents {
-    @apply flex basis-1/4 flex-col items-center justify-center px-2 py-5 text-center text-xs sm:text-sm;
-  }
+.github-repo-hover-link {
+  @apply m-0 h-fit rounded-lg border-2 border-transparent hover:border-2 hover:border-indigo-400 hover:bg-gray-200 hover:text-indigo-600 md:m-2;
 }
+
+.github-repo-hover-contents {
+  @apply flex basis-1/4 flex-col items-center justify-center px-2 py-5 text-center text-xs sm:text-sm;
+}
+
 /** End of RepoHoverBtn link */
 
 /*****************/
@@ -233,39 +222,39 @@
 /*! *************************/
 
 /** OrgList */
-@layer components {
-  .org-list-container {
-    @apply my-5 flex flex-row items-stretch gap-x-3 rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600;
-  }
 
-  .org-list-image-container {
-    @apply flex basis-1/3 flex-row justify-center rounded-xl bg-white p-4 shadow-lg shadow-slate-600;
-  }
-
-  .org-list-image {
-    @apply my-2 h-20 w-20 rounded-md md:h-40 md:w-40;
-  }
-
-  .org-list-title-outer-container {
-    @apply flex basis-2/3 flex-row items-center rounded-xl bg-white p-4 shadow-lg shadow-slate-600;
-  }
-
-  .org-list-title-inner-container {
-    @apply flex justify-center text-left text-2xl font-bold md:text-5xl;
-  }
-
-  .org-list-title {
-    @apply block w-3/4 font-mono leading-none [text-shadow:0_4px_8px_rgba(0,0,0,0.3)];
-  }
-
-  .org-list-skeleton-title {
-    @apply m-2 h-3 w-20 rounded-2xl bg-gray-700 font-bold text-gray-700 md:h-5 md:w-40;
-  }
-
-  .org-list-skeleton-title-long {
-    @apply m-2 h-3 w-32 rounded-2xl bg-gray-700 font-bold text-gray-700 md:h-5 md:w-64;
-  }
+.org-list-container {
+  @apply my-5 flex flex-row items-stretch gap-x-3 rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600;
 }
+
+.org-list-image-container {
+  @apply flex basis-1/3 flex-row justify-center rounded-xl bg-white p-4 shadow-lg shadow-slate-600;
+}
+
+.org-list-image {
+  @apply my-2 h-20 w-20 rounded-md md:h-40 md:w-40;
+}
+
+.org-list-title-outer-container {
+  @apply flex basis-2/3 flex-row items-center rounded-xl bg-white p-4 shadow-lg shadow-slate-600;
+}
+
+.org-list-title-inner-container {
+  @apply flex justify-center text-left text-2xl font-bold md:text-5xl;
+}
+
+.org-list-title {
+  @apply block w-3/4 font-mono leading-none [text-shadow:0_4px_8px_rgba(0,0,0,0.3)];
+}
+
+.org-list-skeleton-title {
+  @apply m-2 h-3 w-20 rounded-2xl bg-gray-700 font-bold text-gray-700 md:h-5 md:w-40;
+}
+
+.org-list-skeleton-title-long {
+  @apply m-2 h-3 w-32 rounded-2xl bg-gray-700 font-bold text-gray-700 md:h-5 md:w-64;
+}
+
 /** End of OrgList */
 
 /*! ***************************/
@@ -277,43 +266,43 @@
 /*! **************************/
 
 /** RepoCounter */
-@layer components {
-  .repos-listing {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    margin: 0 25px 10px 0;
-    font-weight: bold;
-  }
+
+.repos-listing {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 0 25px 10px 0;
+  font-weight: bold;
 }
+
 /** End of RepoCounter */
 
 /** RepoList */
-@layer components {
-  .repo-list-item-hover {
-    @apply mb-2 flex flex-row items-center justify-between rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600 hover:translate-y-1 hover:cursor-pointer hover:border-gray-400 hover:bg-gray-100 hover:shadow-inner;
-  }
 
-  .repo-list-item-no-hover {
-    @apply mb-2 flex h-20 flex-row items-center justify-between rounded-xl border-2 border-gray-300 bg-gray-100 p-4 shadow-md shadow-slate-600;
-  }
-
-  .repo-list-item-title {
-    @apply mb-3 font-bold;
-  }
-
-  .repo-list-item-description {
-    @apply w-80 break-words md:w-fit;
-  }
-
-  .repo-list-item-skeleton-title {
-    @apply m-3 h-5 w-40 rounded-2xl bg-gray-700 font-bold text-gray-700;
-  }
-
-  .repo-list-item-skeleton-description {
-    @apply m-3 h-3 w-64 rounded-2xl bg-gray-700 font-bold text-gray-700;
-  }
+.repo-list-item-hover {
+  @apply mb-2 flex flex-row items-center justify-between rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600 hover:translate-y-1 hover:cursor-pointer hover:border-gray-400 hover:bg-gray-100 hover:shadow-inner;
 }
+
+.repo-list-item-no-hover {
+  @apply mb-2 flex h-20 flex-row items-center justify-between rounded-xl border-2 border-gray-300 bg-gray-100 p-4 shadow-md shadow-slate-600;
+}
+
+.repo-list-item-title {
+  @apply mb-3 font-bold;
+}
+
+.repo-list-item-description {
+  @apply w-80 break-words md:w-fit;
+}
+
+.repo-list-item-skeleton-title {
+  @apply m-3 h-5 w-40 rounded-2xl bg-gray-700 font-bold text-gray-700;
+}
+
+.repo-list-item-skeleton-description {
+  @apply m-3 h-3 w-64 rounded-2xl bg-gray-700 font-bold text-gray-700;
+}
+
 /** End of RepoList */
 
 /** RepoResult */
@@ -321,11 +310,11 @@
 /** End of RepoResult */
 
 /** ScrollToTopBtn */
-@layer components {
-  .scroll-to-top-btn {
-    @apply fixed bottom-9 right-6 rounded-full border-2 border-gray-300 bg-white p-2 shadow-md shadow-slate-600 hover:translate-y-1 hover:cursor-pointer hover:border-gray-400 hover:bg-gray-100 hover:shadow-inner;
-  }
+
+.scroll-to-top-btn {
+  @apply fixed bottom-9 right-6 rounded-full border-2 border-gray-300 bg-white p-2 shadow-md shadow-slate-600 hover:translate-y-1 hover:cursor-pointer hover:border-gray-400 hover:bg-gray-100 hover:shadow-inner;
 }
+
 /** End of ScrollToTopBtn */
 
 /*! ****************************/
@@ -336,34 +325,28 @@
 /*! [#5] search components */
 /*! **************************/
 /** SearchBar */
-@layer components {
-  .search-bar-input {
-    @apply col-span-5 mb-5 rounded-xl border-2 border-gray-300 !bg-white p-4 shadow-md shadow-slate-600 ring-0;
-  }
+.search-bar-input {
+  @apply col-span-5 mb-5 rounded-xl border-2 border-gray-300 !bg-white p-4 shadow-md shadow-slate-600 ring-0;
 }
 /** End of SearchBar */
 
 /** SearchBtn */
-@layer components {
-  .search-button-hover {
-    @apply col-span-2 mb-5 rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600 hover:translate-y-1 hover:cursor-pointer hover:border-gray-400 hover:bg-gray-100 hover:shadow-inner md:col-span-1;
-  }
+.search-button-hover {
+  @apply col-span-2 mb-5 rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600 hover:translate-y-1 hover:cursor-pointer hover:border-gray-400 hover:bg-gray-100 hover:shadow-inner md:col-span-1;
+}
 
-  .search-button-no-hover {
-    @apply col-span-2 mb-5 rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600 md:col-span-1;
-  }
+.search-button-no-hover {
+  @apply col-span-2 mb-5 rounded-xl border-2 border-gray-300 bg-white p-4 shadow-md shadow-slate-600 md:col-span-1;
 }
 /** End of SearchBtn */
 
 /** SearchRoot */
-@layer components {
-  .search-root-container {
-    @apply flex justify-end;
-  }
+.search-root-container {
+  @apply flex justify-end;
+}
 
-  .search-root-grid {
-    @apply grid grid-cols-9 gap-2 md:grid-cols-7;
-  }
+.search-root-grid {
+  @apply grid grid-cols-9 gap-2 md:grid-cols-7;
 }
 /** End of SearchRoot */
 
