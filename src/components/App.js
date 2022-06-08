@@ -46,13 +46,14 @@ const App = () => {
     const scrollHeight = document.documentElement.scrollHeight;
 
     // check if user is near to the bottom of the body
-    if (scrollTop + window.innerHeight + 20 >= scrollHeight) {
+    if (scrollTop + window.innerHeight + 40 >= scrollHeight) {
       setIsBottom(true);
     }
   }
 
   // on mount
   useEffect(() => {
+    handleScrollToTop();
     window.addEventListener('scroll', handleUserScroll);
     return () => window.removeEventListener('scroll', handleUserScroll);
   }, []);
@@ -61,8 +62,11 @@ const App = () => {
   useEffect(() => {
     dispatch(getRepos());
     dispatch(getOrg());
-    const resetOnUnmount = () => dispatch(clearSearchRepo()); //Trying to fix the double mounting bug
-    return resetOnUnmount;
+    // const resetOnUnmount = () => {
+    //   dispatch(getRepos());
+    //   dispatch(getOrg());
+    // }; //Trying to fix the double mounting bug
+    // return resetOnUnmount;
   }, [dispatch]);
 
   // handle re-rendering when users get to the bottom of the page
@@ -92,7 +96,9 @@ const App = () => {
   };
 
   const handleSearch = () => {
-    if (searchQuery.length === 0) return;
+    if (searchQuery.length === 0) {
+      dispatch(clearSearchRepo());
+    }
     dispatch(searchRepo(searchQuery));
   };
 

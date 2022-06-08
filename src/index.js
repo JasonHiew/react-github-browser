@@ -13,6 +13,7 @@ import { createBrowserHistory } from 'history';
 import { Route, Routes } from 'react-router-dom';
 import Details from './routes/RepoDetails';
 import PageNotFound from './routes/404';
+import { render } from 'react-dom';
 
 const { createReduxHistory, routerMiddleware, routerReducer } =
   createReduxHistoryContext({
@@ -43,8 +44,8 @@ sagaMiddleware.run(rootSaga);
  * React 18 has a double mounting bug.
  * This makes for some weird behaviour when putting redux dispatch in the useEffect hook...
  */
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+const root = document.getElementById('root');
+render(
   <React.StrictMode>
     <Provider store={store}>
       <Router history={history}>
@@ -55,5 +56,6 @@ root.render(
         </Routes>
       </Router>
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
+  root
 );

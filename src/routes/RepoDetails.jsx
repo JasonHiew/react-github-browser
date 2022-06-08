@@ -15,7 +15,7 @@ export default function RepoDetails() {
 
   useEffect(() => {
     if (repoDetails.items.length === 0) {
-      dispatch(getRepos());
+      // dispatch(getRepos());
       dispatch(getOrg());
       dispatch(getSpecificRepo(repoName));
     }

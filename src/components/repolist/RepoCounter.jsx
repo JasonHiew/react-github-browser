@@ -1,12 +1,10 @@
 const RepoCounter = ({ repos }) => {
-  return (
+  return repos?.searchedname || repos?.totalCount > 0 ? (
+    <div className='repos-listing'>Found {repos?.totalCount} results</div>
+  ) : (
     <div className='repos-listing'>
       Showing {repos.items.length}
-      {` ${
-        repos.isEndOfCatalogue || repos?.totalCount > 0
-          ? ' / ' + (repos?.totalCount ? repos?.totalCount : repos.items.length)
-          : ' / ?'
-      } repos`}
+      {` ${repos.isEndOfCatalogue ? ' / ' + repos.items.length : ' / ?'} repos`}
     </div>
   );
 };
