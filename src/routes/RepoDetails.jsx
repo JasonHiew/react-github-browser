@@ -4,7 +4,7 @@ import RepoHoverBtn from 'components/common/links/RepoHoverBtn';
 import Layout from 'components/layout/Layout';
 import GitHubRedirectLink from 'components/common/links/GitHubRedirectLink';
 import { useEffect } from 'react';
-import { getOrg, getRepos, getSpecificRepo } from 'store/actions';
+import { getOrg, getSpecificRepo } from 'store/actions';
 
 export default function RepoDetails() {
   const { router, repoDetails } = useSelector((state) => state);

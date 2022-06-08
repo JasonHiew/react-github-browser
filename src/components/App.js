@@ -25,7 +25,7 @@ const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const { repos, org, searchRepos } = useSelector((state) => state);
-  const { nextItemsBatch, isFetching, hasErrored, isEndOfCatalogue } = repos;
+  const { nextItemsBatch } = repos;
 
   // Handle scroll to top button
   const scrollY = useScrollPosition(1 /*fps*/);
@@ -53,7 +53,7 @@ const App = () => {
 
   // on mount
   useEffect(() => {
-    handleScrollToTop();
+    handleScrollToTop(); // scroll to top on mount
     window.addEventListener('scroll', handleUserScroll);
     return () => window.removeEventListener('scroll', handleUserScroll);
   }, []);

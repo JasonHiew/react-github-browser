@@ -1,5 +1,5 @@
 import React from 'react';
-import * as ReactDOM from 'react-dom/client';
+// import * as ReactDOM from 'react-dom/client';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';
@@ -30,7 +30,8 @@ const rootReducer = combineReducers({
 });
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware, routerMiddleware))
+  applyMiddleware(sagaMiddleware, routerMiddleware)
+  // composeWithDevTools(applyMiddleware(sagaMiddleware, routerMiddleware)) // for dev
 );
 
 export const history = createReduxHistory(store);
@@ -43,6 +44,7 @@ sagaMiddleware.run(rootSaga);
  * Render React application.
  * React 18 has a double mounting bug.
  * This makes for some weird behaviour when putting redux dispatch in the useEffect hook...
+ * Reverted to using React 17, ReactDOM.render(<></>, root) instead of root.render()
  */
 const root = document.getElementById('root');
 render(
