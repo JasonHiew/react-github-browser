@@ -11,12 +11,12 @@ const getData = (endpoint) => {
     .get(endpoint)
     .then((response) => {
       if (!response) throw new Error(response.statusText);
-      console.log('URL: ' + endpoint);
-      console.log(response);
+      // console.log('URL: ' + endpoint);
+      // console.log(response);
       return response.data;
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
       throw new Error(
         `There was the following problem: ${err} while fetching ${endpoint}`
       );

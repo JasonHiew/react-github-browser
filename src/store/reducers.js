@@ -10,8 +10,8 @@ import { BATCH_SIZE, MAX_CATALOGUE_LENGTH } from 'constants/constants';
  * @returns {boolean}
  */
 export function checkEndOfCatalogue(
-  currentPage,
   batchSize,
+  currentPage,
   maxCatalogueLength
 ) {
   return batchSize * currentPage > maxCatalogueLength;

@@ -3,10 +3,18 @@
 @tailwind utilities;
 
 /* Navigate this CSS file using #(number) */
-/* #1: Main Page (App.js) */
-/* #2: Details Page */
-/* #3: Layout */
-/* #4: Common components */
+
+/** ROUTES  */
+/* #R1: Main Page (App.js) */
+/* #R2: RepoDetails.jsx */
+/* #R3: 404.jsx */
+
+/** Components */
+/* #1: Layout */
+/* #2: Common components */
+/* #3: orglist components */
+/* #4: repolist components */
+/* #5: search components */
 
 /*? **************************/
 /*? [#R] Routes             **/
@@ -63,6 +71,10 @@
 /*? End of RepoDetails.jsx    **/
 /*? ****************************/
 
+/*? ******************/
+/*? [#R3] 404.jsx   **/
+/*? ******************/
+
 .error-page-outer-container {
   @apply relative h-screen p-2;
 }
@@ -78,11 +90,6 @@
 .error-page-description {
   @apply text-center text-4xl font-semibold;
 }
-
-/*? ******************/
-/*? [#R3] 404.jsx   **/
-/*? ******************/
-
 /*? ******************/
 /*? End of 404.jsx  **/
 /*? ******************/

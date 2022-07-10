@@ -1,5 +1,5 @@
 import React from 'react';
-import * as ReactDOM from 'react-dom/client';
+// import * as ReactDOM from 'react-dom/client';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';
@@ -13,6 +13,7 @@ import { createBrowserHistory } from 'history';
 import { Route, Routes } from 'react-router-dom';
 import Details from './routes/RepoDetails';
 import PageNotFound from './routes/404';
+import { render } from 'react-dom';
 
 const { createReduxHistory, routerMiddleware, routerReducer } =
   createReduxHistoryContext({
@@ -29,7 +30,8 @@ const rootReducer = combineReducers({
 });
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware, routerMiddleware))
+  applyMiddleware(sagaMiddleware, routerMiddleware)
+  // composeWithDevTools(applyMiddleware(sagaMiddleware, routerMiddleware)) // for dev
 );
 
 export const history = createReduxHistory(store);
@@ -42,9 +44,10 @@ sagaMiddleware.run(rootSaga);
  * Render React application.
  * React 18 has a double mounting bug.
  * This makes for some weird behaviour when putting redux dispatch in the useEffect hook...
+ * Reverted to using React 17, ReactDOM.render(<></>, root) instead of root.render()
  */
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+const root = document.getElementById('root');
+render(
   <React.StrictMode>
     <Provider store={store}>
       <Router history={history}>
@@ -55,5 +58,6 @@ root.render(
         </Routes>
       </Router>
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
+  root
 );

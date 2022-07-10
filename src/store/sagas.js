@@ -58,14 +58,14 @@ function* fetchReposSaga({ type }) {
     );
 
     if (isEndOfCatalogue) {
-      const itemsReminder = MAX_CATALOGUE_LENGTH % BATCH_SIZE;
-      if (itemsReminder === 0) {
+      const itemsRemainder = MAX_CATALOGUE_LENGTH % BATCH_SIZE;
+      if (itemsRemainder === 0) {
         return;
       }
 
       const repos = yield call(
         getData,
-        `https://api.github.com/orgs/${ORGANIZATION}/repos?per_page=${BATCH_SIZE}&page=${currentPage}`
+        `https://api.github.com/orgs/${ORGANIZATION}/repos?per_page=${itemsRemainder}&page=${currentPage}`
       );
 
       yield put(actions.getReposSuccess(repos));
